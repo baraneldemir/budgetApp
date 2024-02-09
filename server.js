@@ -65,10 +65,10 @@ app.post('/budgets/new', (req, res) => {
 
 app.delete("/budgets/:id", async (req, res) => {
     const budgetId = req.params.id
-    const uncategorised = await Budget.findOne({name: "Uncategorised"})
+    const uncategorised = await Budget.findOne({name: "Diger"})
     let uncategorisedId = uncategorised._id 
     if (!uncategorised) {
-        const createUncategorised = new Budget({name: "Uncategorised", max: 0})
+        const createUncategorised = new Budget({name: "Diger", max: 0})
         await createUncategorised.save()
         uncategorisedId = createUncategorised._id
     }
@@ -100,7 +100,7 @@ app.get('/expenses', async (req, res) => {
 
 app.post("/expenses/new", async (req, res) => {
     const expense = req.body
-    if (expense.budgetId !== 'Uncategorised') {
+    if (expense.budgetId !== 'Diger') {
         const newExpense = new Expense({
             description: expense.description,
             amount: expense.amount,
@@ -110,9 +110,9 @@ app.post("/expenses/new", async (req, res) => {
         console.log('Expense Saved')
         res.sendStatus(200)
     } else {
-        const uncategorised = await Budget.findOne({name: 'Uncategorised'})
+        const uncategorised = await Budget.findOne({name: 'Diger'})
         if(!uncategorised) {
-            const createUncategorised = new Budget({name: 'Uncategorised', max: 0})
+            const createUncategorised = new Budget({name: 'Diger', max: 0})
             await createUncategorised.save()
             const newExpense = newExpense({
                 description: expense.description,
